@@ -1,1 +1,16 @@
-<p>brewerieslist works!</p>
+
+<div class="container">
+  <div class="row">
+    <div *ngFor="let brew of breweriesData" class="card" style="width: 20rem;">
+      <div class="card-body">
+           <h5 class="card-title">Name - {{brew.name}}</h5>
+        <p class="card-text">Type - {{brew.brewery_Type}}</p>
+        <p class="card-text">Address - {{street}} {{address_2}} {{city}} {{state}}</p>
+        <a href="{{brew.website_Url}}" class="btn btn-primary">Link</a>
+      </div>
+    </div>
+    </div>
+  </div>
+
+
+
