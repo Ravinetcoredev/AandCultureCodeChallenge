@@ -1,16 +1,73 @@
 
+
+
 <div class="container">
   <div class="row">
     <div *ngFor="let brew of breweriesData" class="card" style="width: 20rem;">
       <div class="card-body">
-           <h5 class="card-title">Name - {{brew.name}}</h5>
-        <p class="card-text">Type - {{brew.brewery_Type}}</p>
-        <p class="card-text">Address - {{street}} {{address_2}} {{city}} {{state}}</p>
-        <a href="{{brew.website_Url}}" class="btn btn-primary">Link</a>
+        <div class="row">
+          <div class="col-sm">
+            Name
+          </div>
+          <div class="col-sm">
+            {{brew.name}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm">
+            Type
+          </div>
+          <div class="col-sm">
+            {{brew.brewery_Type}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm">
+            Address
+          </div>
+          <div class="col-sm">
+            {{brew.street}} {{brew.address_2}} {{brew.city}} {{brew.state}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <a href="{{brew.website_Url}}" class="btn btn-light">Link</a>
+          </div>
+          <div class="col-sm">
+            <button type="button" class="btn btn-info" (click)="openBreweryLocationPopup(brew.latitude, brew.longitude, brew.name)">
+              Open in Map
+            </button>
+            </div>
+
+          </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="modal" tabindex="-1" role="dialog"
+     [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{brewName}}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="full" id="map">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger"
+                (click)="closeBreweryPopup()">
+          Close
+        </button>
       </div>
     </div>
-    </div>
   </div>
-
-
-
+</div>
