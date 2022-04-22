@@ -11,12 +11,14 @@ import { Loader } from '@googlemaps/js-api-loader';
 export class BrewerieslistComponent implements OnInit {
 
   public breweriesData: Brewery[];
+  public brewery: Brewery;
   baseUrl: string;
   lat: number;
   lng: number;
   brewName: string;
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
+ 
     http.get<Brewery[]>(baseUrl + 'Breweries/GetAllBreweries').subscribe(result => {
       this.breweriesData = result;
     }, error => console.error(error));}
@@ -25,6 +27,7 @@ export class BrewerieslistComponent implements OnInit {
    
   }
   displayStyle = "none";
+  displayBreweryStyle = "none";
 
   openBreweryLocationPopup(lati, long, name) {
     this.displayStyle = "block";
@@ -78,11 +81,18 @@ export class BrewerieslistComponent implements OnInit {
     }
 
   }
-  closeBreweryPopup() {
+  closeBreweryLocationPopup() {
     this.displayStyle = "none";
   }
 
 
+  openBreweryDetailsPopup(id) {
+    this.displayBreweryStyle = "block";
+    this.brewery = this.breweriesData.find(x => x.id == id);
+  }
+  closeBreweryDetailsPopup() {
+    this.displayBreweryStyle = "none";
+  }
 
 }
 

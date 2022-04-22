@@ -32,24 +32,181 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm">
-            <a href="{{brew.website_Url}}" class="btn btn-light">Link</a>
-          </div>
-          <div class="col-sm">
-            <button type="button" class="btn btn-info" (click)="openBreweryLocationPopup(brew.latitude, brew.longitude, brew.name)">
-              Open in Map
-            </button>
-            </div>
-
-          </div>
+          <button type="button" class="btn btn-info btn-lg btn-block" (click)="openBreweryLocationPopup(brew.latitude, brew.longitude, brew.name)">
+            Open Location in Map
+          </button>
         </div>
+        <div class="row">
+          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="openBreweryDetailsPopup(brew.id)">
+            More Details...
+          </button>
+        </div>
+        <div class="row">
+          <a href="{{brew.website_Url}}" class="btn btn-light btn-lg btn-block">Website Link</a>
+        </div>
+
+      </div>
     </div>
+  </div>
 </div>
 
 
 
 
 
+<div class="modal" tabindex="-1" role="dialog"
+     [ngStyle]="{'display':displayBreweryStyle}">
+  <div class="modal-dialog" role="document" *ngIf="this.brewery != null">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">  {{this.brewery.name}}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm">
+            Id
+          </div>
+          <div class="col-sm">
+            {{this.brewery.id}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            Name
+          </div>
+          <div class="col-sm">
+            {{this.brewery.name}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            Type
+          </div>
+          <div class="col-sm">
+            {{this.brewery.brewery_Type}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            Street
+          </div>
+          <div class="col-sm">
+            {{this.brewery.street}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            City
+          </div>
+          <div class="col-sm">
+            {{this.brewery.city}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            State
+          </div>
+          <div class="col-sm">
+            {{this.brewery.state}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            County Province
+          </div>
+          <div class="col-sm">
+            {{this.brewery.county_Province}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            Postal Code
+          </div>
+          <div class="col-sm">
+            {{this.brewery.postal_Code}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            Country
+          </div>
+          <div class="col-sm">
+            {{this.brewery.country}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            Latitude
+          </div>
+          <div class="col-sm">
+            {{this.brewery.latitude}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            Longitude
+          </div>
+          <div class="col-sm">
+            {{this.brewery.longitude}}
+          </div>
+        </div><div class="row">
+          <div class="col-sm">
+            Phone
+          </div>
+          <div class="col-sm">
+            {{this.brewery.phone}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            Website Url
+          </div>
+          <div class="col-sm">
+            {{this.brewery.website_Url}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            Updated At
+          </div>
+          <div class="col-sm">
+            {{this.brewery.updated_At}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            Created At
+          </div>
+          <div class="col-sm">
+            {{this.brewery.created_At}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            Address 2
+          </div>
+          <div class="col-sm">
+            {{this.brewery.address_2}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            Address 3
+          </div>
+          <div class="col-sm">
+            {{this.brewery.address_3}}
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger"
+                (click)="closeBreweryDetailsPopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="modal" tabindex="-1" role="dialog"
      [ngStyle]="{'display':displayStyle}">
@@ -64,10 +221,11 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger"
-                (click)="closeBreweryPopup()">
+                (click)="closeBreweryLocationPopup()">
           Close
         </button>
       </div>
     </div>
   </div>
 </div>
+
