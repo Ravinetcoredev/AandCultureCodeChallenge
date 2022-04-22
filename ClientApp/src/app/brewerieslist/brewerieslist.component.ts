@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Loader } from '@googlemaps/js-api-loader';
 
 @Component({
   selector: 'app-brewerieslist',
@@ -10,22 +11,87 @@ import { Router } from '@angular/router';
 export class BrewerieslistComponent implements OnInit {
 
   public breweriesData: Brewery[];
+  public brewery: Brewery;
   baseUrl: string;
+  lat: number;
+  lng: number;
+  brewName: string;
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
+ 
     http.get<Brewery[]>(baseUrl + 'Breweries/GetAllBreweries').subscribe(result => {
       this.breweriesData = result;
-      
-
-      //http.get<string[]>(baseUrl + 'Login').subscribe(result => {
-      //  console.log(result);
-      //}, error => console.error(error));
-
     }, error => console.error(error));}
 
   ngOnInit(): void {
+   
+  }
+  displayStyle = "none";
+  displayBreweryStyle = "none";
+
+  openBreweryLocationPopup(lati, long, name) {
+    this.displayStyle = "block";
+    if (lati !== null || long !== null) {
+
+      var strLatitude = lati;
+      var strLongitude = long;
+      this.lat = + lati;
+      this.lng = + long;
+      this.brewName = name;
+      var loader = new Loader({
+        apiKey: 'todo - replace with an API Key',
+        version: "weekly",
+        libraries: ["places"]
+      });
+
+      const mapOptions = {
+        center: {
+          lat: 0,
+          lng: 0
+        },
+        zoom: 4
+      };
+
+      // Promise
+      loader
+        .load()
+        .then((google) => {
+          const map = new google.maps.Map(
+            document.getElementById("map") as HTMLElement,
+            {
+              zoom: 7,
+              center: { lat: this.lat, lng: this.lng },
+            }
+          );
+
+          new google.maps.Marker({
+            position: { lat: this.lat, lng: this.lng },
+            map,
+            title: name,
+          });
+
+        })
+        .catch(e => {
+          // do something
+        });
+
+    }
+    else {
+      this.brewName = "No latitude and longitude found for Brewery " + name;
+    }
+
+  }
+  closeBreweryLocationPopup() {
+    this.displayStyle = "none";
+  }
 
 
+  openBreweryDetailsPopup(id) {
+    this.displayBreweryStyle = "block";
+    this.brewery = this.breweriesData.find(x => x.id == id);
+  }
+  closeBreweryDetailsPopup() {
+    this.displayBreweryStyle = "none";
   }
 
 }

@@ -2,4 +2,10 @@
 div.card-body:hover {
    color: white;
    background-color: teal;
-} 
+}
+
+
+.full {
+  width: 15vw;
+  height: 15vh;
+}
